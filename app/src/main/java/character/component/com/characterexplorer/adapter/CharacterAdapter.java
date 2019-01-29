@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import character.component.com.characterexplorer.R;
+import character.component.com.characterexplorer.ViewUtils;
 import character.component.com.characterexplorer.model.Results;
 
 public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyViewHolder> {
@@ -58,10 +59,10 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
-        // ViewUtils.hasValidText(context, rowsModels.get(position).getName(), holder.mTextTitle);
+        ViewUtils.hasValidText(context, rowsModels.get(position).getName(), holder.mTextTitle);
         Glide.with(context)
                 .load(rowsModels.get(position).getThumbnail().getPath() + "." + rowsModels.get(position).getThumbnail().getExtension())
-                .apply(new RequestOptions().override(200))
+                .apply(new RequestOptions().override(300))
                 .into(holder.mImageView);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -80,10 +81,6 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyVi
     public void bindView(List<Results> rowsModels) {
         this.rowsModels = rowsModels;
         notifyDataSetChanged();
-    }
-
-    public String setTitle() {
-        return "TO DO";
     }
 
 }

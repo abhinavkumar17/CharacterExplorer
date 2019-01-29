@@ -2,20 +2,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/border"
+    android:paddingTop="@dimen/padding_default"
+    android:paddingBottom="@dimen/padding_default">
 
     <ImageView
         android:id="@+id/img_character"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/SectionLayout"
+        android:paddingTop="@dimen/padding_internal_bigger"
+        android:paddingBottom="@dimen/padding_internal_bigger"
         android:src="@drawable/ic_launcher_background" />
 
     <TextView
         android:id="@+id/name_character"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/TextTitle"
         android:layout_below="@+id/img_character"
-        android:textSize="16sp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
         tools:text="Marvel Character" />
 
 </RelativeLayout>

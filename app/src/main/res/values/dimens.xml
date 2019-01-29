@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_internal">5dp</dimen>
+    <dimen name="padding_internal_bigger">10dp</dimen>
+    <dimen name="text_size_primary">18sp</dimen>
+    <dimen name="text_size_secondary">14sp</dimen>
+    <dimen name="text_size_tool">20sp</dimen>
+    <dimen name="button_height">68dp</dimen>
+    <dimen name="padding_default">15dp</dimen>
+    <dimen name="toolbar_height">54dp</dimen>
+    <dimen name="zero_size">54dp</dimen>
+</resources>

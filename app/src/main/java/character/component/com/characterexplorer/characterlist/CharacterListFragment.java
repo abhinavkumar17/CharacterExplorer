@@ -21,6 +21,7 @@ import character.component.com.characterexplorer.usecase.FetchCharacterListUseCa
 
 public class CharacterListFragment extends BaseFragment implements CharacterListView.Listener, FetchCharacterListUseCase.Listener,
         NetworkStateReceiver.Listener {
+
     private CharacterListView mCharacterListView;
     private FetchCharacterListUseCase mFetchCharacterListUseCase;
     private DialogsManager mDialogsManager;

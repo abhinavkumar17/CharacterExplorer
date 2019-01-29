@@ -1,59 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/SectionLayout"
     android:orientation="vertical">
 
     <include layout="@layout/element_toolbar" />
 
     <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="5dp">
+        style="@style/MatchParentLayout"
+        android:paddingTop="@dimen/padding_internal">
 
         <ProgressBar
             android:id="@+id/progress"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
+            style="@style/SectionLayout"
             android:visibility="gone" />
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <ScrollView style="@style/MatchParentLayout">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <RelativeLayout style="@style/SectionLayout">
 
                 <ImageView
                     android:id="@+id/img_character"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp" />
+                    style="@style/SectionLayout"
+                    android:paddingTop="@dimen/padding_internal_bigger"
+                    android:paddingBottom="@dimen/padding_internal" />
 
                 <TextView
                     android:id="@+id/name_character"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/TextTitle"
                     android:layout_below="@+id/img_character"
-                    android:paddingBottom="5dp"
-                    android:textSize="25sp"
                     tools:text="Marvel Character" />
 
                 <TextView
                     android:id="@+id/character_desc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/TextDesc"
                     android:layout_below="@+id/name_character"
-                    android:textSize="20sp"
                     tools:text="Marvel Character Description" />
 
                 <Button
                     android:id="@+id/buttonPanel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/Button"
                     android:layout_below="@+id/character_desc"
                     android:visibility="gone"
                     tools:text="External LINK" />

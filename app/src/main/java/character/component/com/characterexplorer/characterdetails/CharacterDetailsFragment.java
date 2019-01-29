@@ -18,7 +18,6 @@ public class CharacterDetailsFragment extends BaseFragment implements FetchChara
     private CharacterDetailsMvc mCharacterDetailsMvc;
     private FetchCharacterDetailsUseCase mFetchCharacterDetailsUseCase;
     private DialogsManager mDialogsManager;
-    Bundle args;
 
     private static final String ARG_QUESTION_ID = "ARG_QUESTION_ID";
 
@@ -31,7 +30,7 @@ public class CharacterDetailsFragment extends BaseFragment implements FetchChara
     }
 
     private String getCharacterId() {
-        return args.getString(ARG_QUESTION_ID);
+        return getArguments().getString(ARG_QUESTION_ID);
     }
 
 

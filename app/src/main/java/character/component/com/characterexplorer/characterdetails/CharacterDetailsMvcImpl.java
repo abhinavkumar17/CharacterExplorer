@@ -59,7 +59,7 @@ public class CharacterDetailsMvcImpl extends BaseViewMvc<CharacterDetailsMvc.Lis
         mToolbarViewMvc.setTitle(rowsModels.getName());
         Glide.with(getContext())
                 .load(rowsModels.getThumbnail().getPath() + "." + rowsModels.getThumbnail().getExtension())
-                .apply(new RequestOptions().override(200))
+                .apply(new RequestOptions().override(600))
                 .into(mImageView);
 
         final String url = rowsModels.getUrls().get(0).getUrl();
