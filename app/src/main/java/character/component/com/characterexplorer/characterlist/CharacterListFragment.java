@@ -3,7 +3,6 @@ package character.component.com.characterexplorer.characterlist;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,22 +11,29 @@ import java.util.List;
 
 import character.component.com.characterexplorer.R;
 import character.component.com.characterexplorer.characterdetails.CharacterDetailsFragment;
+import character.component.com.characterexplorer.common.BaseFragment;
+import character.component.com.characterexplorer.common.NetworkStateReceiver;
+import character.component.com.characterexplorer.common.dialog.DialogsManager;
+import character.component.com.characterexplorer.common.dialog.ServerErrorDialogFragment;
 import character.component.com.characterexplorer.model.Results;
 import character.component.com.characterexplorer.usecase.FetchCharacterListUseCase;
 
 
-public class CharacterListFragment extends Fragment implements CharacterListView.Listener {
+public class CharacterListFragment extends BaseFragment implements CharacterListView.Listener, FetchCharacterListUseCase.Listener,
+        NetworkStateReceiver.Listener {
     private CharacterListView mCharacterListView;
     private FetchCharacterListUseCase mFetchCharacterListUseCase;
+    private DialogsManager mDialogsManager;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mCharacterListView = mViewMvcFactory.getCharacterListViewMvc(LayoutInflater.from(getActivity()), null);
+        mCharacterListView = getCompositionRoot().getViewMvcFactory().newInstance(CharacterListView.class, null);
+        mFetchCharacterListUseCase = getCompositionRoot().getFetchCharacterListUseCase();
+        mDialogsManager = getCompositionRoot().getDialogsManager();
         return mCharacterListView.getRootView();
     }
-
 
     @Override
     public void onResume() {
@@ -58,13 +64,14 @@ public class CharacterListFragment extends Fragment implements CharacterListView
     @Override
     public void onFetchFail() {
         mCharacterListView.hideProgressIndication();
+        mDialogsManager.showRetainedDialogWithId(ServerErrorDialogFragment.newInstance(), "");
     }
 
     @Override
     public void onCharacterClicked(String characterId) {
         CharacterDetailsFragment characterDetailsFragment = CharacterDetailsFragment.newInstance(characterId);
-        //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frag_character, characterDetailsFragment, "CharacterDetailsFragment").commit();
-        getFragmentManager().beginTransaction().replace(R.id.frag_character, characterDetailsFragment).addToBackStack("CharacterDetailsFragment").commit();
+        if (getFragmentManager() != null)
+            getFragmentManager().beginTransaction().replace(R.id.frag_character, characterDetailsFragment).addToBackStack("CharacterDetailsFragment").commit();
     }
 
     @Override
@@ -75,5 +82,6 @@ public class CharacterListFragment extends Fragment implements CharacterListView
     @Override
     public void networkUnavailable() {
         mCharacterListView.hideProgressIndication();
+        mDialogsManager.showRetainedDialogWithId(ServerErrorDialogFragment.newInstance(), "");
     }
 }

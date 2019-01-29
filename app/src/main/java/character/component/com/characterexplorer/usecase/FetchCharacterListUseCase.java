@@ -1,11 +1,8 @@
 package character.component.com.characterexplorer.usecase;
 
-import android.view.View;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import character.component.com.characterexplorer.RetrofitClientInstance;
 import character.component.com.characterexplorer.common.BaseViewMvc;
 import character.component.com.characterexplorer.common.CharacterInterceptor;
 import character.component.com.characterexplorer.model.CharactersResponse;
@@ -33,13 +30,8 @@ public class FetchCharacterListUseCase extends BaseViewMvc<FetchCharacterListUse
 
     List<Listener> mListener = new ArrayList<>();
 
-    public FetchCharacterListUseCase() {
-        mCharacterInterceptor = RetrofitClientInstance.getRetrofitInstance().create(CharacterInterceptor.class);
-    }
-
-    @Override
-    public View getRootView() {
-        return null;
+    public FetchCharacterListUseCase(CharacterInterceptor mCharacterInterceptor) {
+        this.mCharacterInterceptor = mCharacterInterceptor;
     }
 
 
@@ -53,7 +45,6 @@ public class FetchCharacterListUseCase extends BaseViewMvc<FetchCharacterListUse
     }
 
     public void fetchCharacterList() {
-        //String hash = HashGenerator.generate(TIME_STAMP, PRIVATE_KEY, PUBLIC_KEY);
         responseCall = mCharacterInterceptor.getCharacters(PUBLIC_KEY, HASH_KEY, LIMIT, TIME_STAMP);
         responseCall.enqueue(new Callback<CharactersResponse>() {
             @Override

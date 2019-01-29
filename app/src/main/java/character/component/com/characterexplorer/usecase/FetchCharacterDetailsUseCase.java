@@ -3,7 +3,6 @@ package character.component.com.characterexplorer.usecase;
 import java.util.ArrayList;
 import java.util.List;
 
-import character.component.com.characterexplorer.RetrofitClientInstance;
 import character.component.com.characterexplorer.common.BaseViewMvc;
 import character.component.com.characterexplorer.common.CharacterInterceptor;
 import character.component.com.characterexplorer.model.CharactersResponse;
@@ -29,8 +28,8 @@ public class FetchCharacterDetailsUseCase extends BaseViewMvc<FetchCharacterDeta
     CharacterInterceptor mCharacterDetalisInterceptor;
     List<Listener> mListener = new ArrayList<>();
 
-    public FetchCharacterDetailsUseCase() {
-        mCharacterDetalisInterceptor = RetrofitClientInstance.getRetrofitInstance().create(CharacterInterceptor.class);
+    public FetchCharacterDetailsUseCase(CharacterInterceptor mCharacterDetalisInterceptor) {
+        this.mCharacterDetalisInterceptor = mCharacterDetalisInterceptor;
     }
 
     public void FetchCharacterDetais(String characterId) {

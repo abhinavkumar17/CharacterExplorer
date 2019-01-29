@@ -3,18 +3,22 @@ package character.component.com.characterexplorer.characterdetails;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import character.component.com.characterexplorer.common.BaseFragment;
+import character.component.com.characterexplorer.common.dialog.DialogsManager;
+import character.component.com.characterexplorer.common.dialog.ServerErrorDialogFragment;
 import character.component.com.characterexplorer.model.Results;
 import character.component.com.characterexplorer.usecase.FetchCharacterDetailsUseCase;
 
-public class CharacterDetailsFragment extends Fragment implements FetchCharacterDetailsUseCase.Listener, CharacterDetailsMvc.Listener {
+public class CharacterDetailsFragment extends BaseFragment implements FetchCharacterDetailsUseCase.Listener, CharacterDetailsMvc.Listener {
 
     private CharacterDetailsMvc mCharacterDetailsMvc;
     private FetchCharacterDetailsUseCase mFetchCharacterDetailsUseCase;
+    private DialogsManager mDialogsManager;
+    Bundle args;
 
     private static final String ARG_QUESTION_ID = "ARG_QUESTION_ID";
 
@@ -27,15 +31,16 @@ public class CharacterDetailsFragment extends Fragment implements FetchCharacter
     }
 
     private String getCharacterId() {
-        return getArguments().getString(ARG_QUESTION_ID);
+        return args.getString(ARG_QUESTION_ID);
     }
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup parent, @Nullable Bundle savedInstanceState) {
-        mCharacterDetailsMvc = mViewMvcFactory.getCharacterDetailsViewMvc(LayoutInflater.from(getActivity()), null);
-        mFetchCharacterDetailsUseCase = new FetchCharacterDetailsUseCase();
+        mCharacterDetailsMvc = getCompositionRoot().getViewMvcFactory().newInstance(CharacterDetailsMvc.class, null);
+        mFetchCharacterDetailsUseCase = getCompositionRoot().getFetchCharacterDetailsUseCase();
+        mDialogsManager = getCompositionRoot().getDialogsManager();
         return mCharacterDetailsMvc.getRootView();
     }
 
@@ -64,10 +69,13 @@ public class CharacterDetailsFragment extends Fragment implements FetchCharacter
     @Override
     public void characterDetailsFetchFailed() {
         mCharacterDetailsMvc.hideProgressIndication();
+        mDialogsManager.showRetainedDialogWithId(ServerErrorDialogFragment.newInstance(), "");
     }
 
     @Override
     public void onNavigateUpClicked() {
-        //to do back key press handling here
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        }
     }
 }

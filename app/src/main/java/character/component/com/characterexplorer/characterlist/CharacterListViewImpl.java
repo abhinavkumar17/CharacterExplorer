@@ -13,6 +13,8 @@ import java.util.List;
 import character.component.com.characterexplorer.R;
 import character.component.com.characterexplorer.adapter.CharacterAdapter;
 import character.component.com.characterexplorer.common.BaseViewMvc;
+import character.component.com.characterexplorer.common.ToolbarView;
+import character.component.com.characterexplorer.common.ViewMvcFactory;
 import character.component.com.characterexplorer.model.Results;
 
 public class CharacterListViewImpl extends BaseViewMvc<CharacterListView.Listener> implements CharacterListView {

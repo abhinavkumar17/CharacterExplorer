@@ -2,7 +2,6 @@ package character.component.com.characterexplorer.characterdetails;
 
 import android.net.Uri;
 import android.support.v7.widget.Toolbar;
-import android.support.v7.widget.ViewUtils;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import character.component.com.characterexplorer.R;
+import character.component.com.characterexplorer.ViewUtils;
 import character.component.com.characterexplorer.common.BaseViewMvc;
+import character.component.com.characterexplorer.common.ToolbarView;
+import character.component.com.characterexplorer.common.ViewMvcFactory;
 import character.component.com.characterexplorer.model.Results;
 
 public class CharacterDetailsMvcImpl extends BaseViewMvc<CharacterDetailsMvc.Listener> implements CharacterDetailsMvc {
