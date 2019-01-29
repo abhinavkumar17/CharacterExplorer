@@ -8,10 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
+import character.component.com.characterexplorer.R;
+import character.component.com.characterexplorer.characterdetails.CharacterDetailsFragment;
+import character.component.com.characterexplorer.model.Results;
+import character.component.com.characterexplorer.usecase.FetchCharacterListUseCase;
+
 
 public class CharacterListFragment extends Fragment implements CharacterListView.Listener {
-
     private CharacterListView mCharacterListView;
+    private FetchCharacterListUseCase mFetchCharacterListUseCase;
 
 
     @Nullable
@@ -51,7 +58,6 @@ public class CharacterListFragment extends Fragment implements CharacterListView
     @Override
     public void onFetchFail() {
         mCharacterListView.hideProgressIndication();
-        mDialogsManager.showRetainedDialogWithId(ServerErrorDialogFragment.newInstance(), "");
     }
 
     @Override
@@ -69,6 +75,5 @@ public class CharacterListFragment extends Fragment implements CharacterListView
     @Override
     public void networkUnavailable() {
         mCharacterListView.hideProgressIndication();
-        mDialogsManager.showRetainedDialogWithId(ServerErrorDialogFragment.newInstance(), "");
     }
 }

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">CharacterExplorer</string>
+    <string name="character_title">CHARACTERS</string>
+    <string name="character_info">MORE INFO</string>
+    <string name="character_no_info">There is no description for this character</string>
+    <string name="server_error_dialog_title">Error</string>
+    <string name="server_error_dialog_message">Something went wrong. Please try after some time</string>
+    <string name="server_error_dialog_button_caption">OK</string>
 </resources>
