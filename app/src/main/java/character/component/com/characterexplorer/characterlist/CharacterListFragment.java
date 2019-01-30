@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import character.component.com.characterexplorer.R;
 import character.component.com.characterexplorer.characterdetails.CharacterDetailsFragment;
 import character.component.com.characterexplorer.common.BaseFragment;
@@ -22,17 +24,21 @@ import character.component.com.characterexplorer.usecase.FetchCharacterListUseCa
 public class CharacterListFragment extends BaseFragment implements CharacterListView.Listener, FetchCharacterListUseCase.Listener,
         NetworkStateReceiver.Listener {
 
-    private CharacterListView mCharacterListView;
-    private FetchCharacterListUseCase mFetchCharacterListUseCase;
-    private DialogsManager mDialogsManager;
+
+    CharacterListView mCharacterListView;
+    @Inject
+    FetchCharacterListUseCase mFetchCharacterListUseCase;
+    @Inject
+    DialogsManager mDialogsManager;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mCharacterListView = getCompositionRoot().getViewMvcFactory().newInstance(CharacterListView.class, null);
-        mFetchCharacterListUseCase = getCompositionRoot().getFetchCharacterListUseCase();
-        mDialogsManager = getCompositionRoot().getDialogsManager();
+        // mFetchCharacterListUseCase = getCompositionRoot().getFetchCharacterListUseCase();
+        // mDialogsManager = getCompositionRoot().getDialogsManager();
+        getPresentationComponent().inject(this);
         return mCharacterListView.getRootView();
     }
 

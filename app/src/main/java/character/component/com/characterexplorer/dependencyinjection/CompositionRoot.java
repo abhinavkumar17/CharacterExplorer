@@ -42,5 +42,4 @@ public class CompositionRoot {
     public FetchCharacterDetailsUseCase getFetchCharacterDetailsUseCase() {
         return new FetchCharacterDetailsUseCase(getCharacterInterceptor());
     }
-
 }

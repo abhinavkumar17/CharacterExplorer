@@ -2,19 +2,23 @@ package character.component.com.characterexplorer.common;
 
 import android.app.Application;
 
-import character.component.com.characterexplorer.dependencyinjection.CompositionRoot;
+import character.component.com.characterexplorer.application.ApplicationComponent;
+import character.component.com.characterexplorer.application.ApplicationModule;
+import character.component.com.characterexplorer.application.DaggerApplicationComponent;
 
 public class CharacterApplication extends Application {
 
-    CompositionRoot mCompositionRoot;
+    ApplicationComponent mApplicationComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mCompositionRoot = new CompositionRoot();
+        mApplicationComponent = DaggerApplicationComponent.builder()
+                .applicationModule(new ApplicationModule())
+                .build();
     }
 
-    public CompositionRoot getCompositionRoot() {
-        return mCompositionRoot;
+    public ApplicationComponent getApplicationComponent() {
+        return mApplicationComponent;
     }
 }
