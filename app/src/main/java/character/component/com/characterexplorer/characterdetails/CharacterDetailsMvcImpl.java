@@ -57,7 +57,7 @@ public class CharacterDetailsMvcImpl extends BaseViewMvc<CharacterDetailsMvc.Lis
         ViewUtils.hasValidText(getContext(), rowsModels.getName(), mTextTitle);
         ViewUtils.hasValidText(getContext(), rowsModels.getDescription(), mTextDesc);
         mToolbarViewMvc.setTitle(rowsModels.getName());
-        Glide.with(getContext())
+        Glide.with(getContext().getApplicationContext())
                 .load(rowsModels.getThumbnail().getPath() + "." + rowsModels.getThumbnail().getExtension())
                 .apply(new RequestOptions().override(600))
                 .into(mImageView);

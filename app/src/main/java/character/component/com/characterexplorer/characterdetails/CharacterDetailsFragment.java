@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import javax.inject.Inject;
 
 import character.component.com.characterexplorer.common.BaseFragment;
+import character.component.com.characterexplorer.common.ViewMvcFactory;
 import character.component.com.characterexplorer.common.dialog.DialogsManager;
 import character.component.com.characterexplorer.common.dialog.ServerErrorDialogFragment;
 import character.component.com.characterexplorer.model.Results;
@@ -22,6 +23,8 @@ public class CharacterDetailsFragment extends BaseFragment implements FetchChara
     FetchCharacterDetailsUseCase mFetchCharacterDetailsUseCase;
     @Inject
     DialogsManager mDialogsManager;
+    @Inject
+    ViewMvcFactory mViewMvcFactory;
 
     private static final String ARG_QUESTION_ID = "ARG_QUESTION_ID";
 
@@ -33,6 +36,7 @@ public class CharacterDetailsFragment extends BaseFragment implements FetchChara
         return fragment;
     }
 
+
     private String getCharacterId() {
         return getArguments().getString(ARG_QUESTION_ID);
     }
@@ -41,10 +45,8 @@ public class CharacterDetailsFragment extends BaseFragment implements FetchChara
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup parent, @Nullable Bundle savedInstanceState) {
-        mCharacterDetailsMvc = getCompositionRoot().getViewMvcFactory().newInstance(CharacterDetailsMvc.class, null);
         getPresentationComponent().inject(this);
-        //// mFetchCharacterDetailsUseCase = getCompositionRoot().getFetchCharacterDetailsUseCase();
-        //mDialogsManager = getCompositionRoot().getDialogsManager();
+        mCharacterDetailsMvc = mViewMvcFactory.newInstance(CharacterDetailsMvc.class, null);
         return mCharacterDetailsMvc.getRootView();
     }
 

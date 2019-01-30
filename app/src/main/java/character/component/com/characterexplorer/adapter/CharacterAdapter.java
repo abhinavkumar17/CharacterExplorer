@@ -60,7 +60,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyVi
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         ViewUtils.hasValidText(context, rowsModels.get(position).getName(), holder.mTextTitle);
-        Glide.with(context)
+        Glide.with(context.getApplicationContext())
                 .load(rowsModels.get(position).getThumbnail().getPath() + "." + rowsModels.get(position).getThumbnail().getExtension())
                 .apply(new RequestOptions().override(300))
                 .into(holder.mImageView);

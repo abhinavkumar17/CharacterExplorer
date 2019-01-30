@@ -15,6 +15,7 @@ import character.component.com.characterexplorer.R;
 import character.component.com.characterexplorer.characterdetails.CharacterDetailsFragment;
 import character.component.com.characterexplorer.common.BaseFragment;
 import character.component.com.characterexplorer.common.NetworkStateReceiver;
+import character.component.com.characterexplorer.common.ViewMvcFactory;
 import character.component.com.characterexplorer.common.dialog.DialogsManager;
 import character.component.com.characterexplorer.common.dialog.ServerErrorDialogFragment;
 import character.component.com.characterexplorer.model.Results;
@@ -30,15 +31,15 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
     FetchCharacterListUseCase mFetchCharacterListUseCase;
     @Inject
     DialogsManager mDialogsManager;
+    @Inject
+    ViewMvcFactory mViewMvcFactory;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mCharacterListView = getCompositionRoot().getViewMvcFactory().newInstance(CharacterListView.class, null);
-        // mFetchCharacterListUseCase = getCompositionRoot().getFetchCharacterListUseCase();
-        // mDialogsManager = getCompositionRoot().getDialogsManager();
         getPresentationComponent().inject(this);
+        mCharacterListView = mViewMvcFactory.newInstance(CharacterListView.class, null);
         return mCharacterListView.getRootView();
     }
 
@@ -78,7 +79,7 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
     public void onCharacterClicked(String characterId) {
         CharacterDetailsFragment characterDetailsFragment = CharacterDetailsFragment.newInstance(characterId);
         if (getFragmentManager() != null)
-            getFragmentManager().beginTransaction().replace(R.id.frag_character, characterDetailsFragment).addToBackStack("CharacterDetailsFragment").commit();
+            getFragmentManager().beginTransaction().replace(R.id.frag_character, characterDetailsFragment, "CharacterDetailsFragment").addToBackStack("CharacterDetailsFragment").commit();
     }
 
     @Override
