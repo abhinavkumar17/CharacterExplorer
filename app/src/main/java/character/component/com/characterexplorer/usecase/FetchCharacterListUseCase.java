@@ -3,18 +3,18 @@ package character.component.com.characterexplorer.usecase;
 import java.util.ArrayList;
 import java.util.List;
 
-import character.component.com.characterexplorer.common.BaseViewMvc;
-import character.component.com.characterexplorer.common.CharacterInterceptor;
+import character.component.com.characterexplorer.screens.common.controllerbase.BaseViewMvc;
+import character.component.com.characterexplorer.screens.common.network.CharacterInterceptor;
 import character.component.com.characterexplorer.model.CharactersResponse;
 import character.component.com.characterexplorer.model.Results;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static character.component.com.characterexplorer.common.AppConstants.HASH_KEY;
-import static character.component.com.characterexplorer.common.AppConstants.LIMIT;
-import static character.component.com.characterexplorer.common.AppConstants.PUBLIC_KEY;
-import static character.component.com.characterexplorer.common.AppConstants.TIME_STAMP;
+import static character.component.com.characterexplorer.screens.common.network.AppConstants.HASH_KEY;
+import static character.component.com.characterexplorer.screens.common.network.AppConstants.LIMIT;
+import static character.component.com.characterexplorer.screens.common.network.AppConstants.PUBLIC_KEY;
+import static character.component.com.characterexplorer.screens.common.network.AppConstants.TIME_STAMP;
 
 public class FetchCharacterListUseCase extends BaseViewMvc<FetchCharacterListUseCase.Listener> {
 

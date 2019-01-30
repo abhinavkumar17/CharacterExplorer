@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import java.io.File;
 
-import character.component.com.characterexplorer.characterlist.CharacterListFragment;
+import character.component.com.characterexplorer.screens.characterlist.CharacterListFragment;
 
 public class MainActivity extends AppCompatActivity {
     
