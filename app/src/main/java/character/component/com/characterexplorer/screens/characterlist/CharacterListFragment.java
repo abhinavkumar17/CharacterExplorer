@@ -53,7 +53,7 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
         mCharacterListView.registerListener(this);
         mFetchCharacterListUseCase.registerListener(this);
         mCharacterListView.showProgressIndication();
-        mFetchCharacterListUseCase.fetchCharacterList();
+        mFetchCharacterListUseCase.fetchCharacterListAndNotify();
     }
 
     @Override
@@ -64,13 +64,13 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
     }
 
     @Override
-    public void onFetchSuccess(List<Results> rowsModels) {
+    public void onFetchOfCharacterListSucceeded(List<Results> rowsModels) {
         mCharacterListView.hideProgressIndication();
         mCharacterListView.bindView(rowsModels);
     }
 
     @Override
-    public void onFetchFail() {
+    public void onFetchOfCharacterListFailed() {
         mCharacterListView.hideProgressIndication();
         mDialogsManager.showRetainedDialogWithId(ServerErrorDialogFragment.newInstance(), "");
     }
@@ -83,12 +83,12 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
     }
 
     @Override
-    public void networkAvailable() {
+    public void onNetworkAvailable() {
         FetchCharacterList();
     }
 
     @Override
-    public void networkUnavailable() {
+    public void onNetworkUnAvailable() {
         mCharacterListView.hideProgressIndication();
         mDialogsManager.showRetainedDialogWithId(ServerErrorDialogFragment.newInstance(), "");
     }

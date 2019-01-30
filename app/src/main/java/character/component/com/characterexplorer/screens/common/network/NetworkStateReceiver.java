@@ -10,9 +10,9 @@ import character.component.com.characterexplorer.screens.common.controllerbase.B
 public class NetworkStateReceiver extends BaseObservable<NetworkStateReceiver.Listener> {
 
     public interface Listener {
-        void networkAvailable();
+        void onNetworkAvailable();
 
-        void networkUnavailable();
+        void onNetworkUnAvailable();
     }
 
     @Override
@@ -23,7 +23,7 @@ public class NetworkStateReceiver extends BaseObservable<NetworkStateReceiver.Li
 
     public void connect(Context context) {
         ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo ni = manager.getActiveNetworkInfo();
+        NetworkInfo ni = manager != null ? manager.getActiveNetworkInfo() : null;
 
         if (ni != null && ni.getState() == NetworkInfo.State.CONNECTED) {
             notifyConnected();
@@ -34,12 +34,12 @@ public class NetworkStateReceiver extends BaseObservable<NetworkStateReceiver.Li
 
     private void notifyConnected() {
         for (Listener listener : getListeners())
-            listener.networkAvailable();
+            listener.onNetworkAvailable();
     }
 
     private void notifyDisConnected() {
         for (Listener listener : getListeners())
-            listener.networkUnavailable();
+            listener.onNetworkUnAvailable();
     }
 
 }

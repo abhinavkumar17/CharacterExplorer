@@ -20,9 +20,9 @@ public class FetchCharacterListUseCase extends BaseViewMvc<FetchCharacterListUse
 
     public interface Listener {
 
-        void onFetchSuccess(List<Results> rowsModels);
+        void onFetchOfCharacterListSucceeded(List<Results> rowsModels);
 
-        void onFetchFail();
+        void onFetchOfCharacterListFailed();
     }
 
     CharacterInterceptor mCharacterInterceptor;
@@ -44,7 +44,7 @@ public class FetchCharacterListUseCase extends BaseViewMvc<FetchCharacterListUse
         mListener.remove(listener);
     }
 
-    public void fetchCharacterList() {
+    public void fetchCharacterListAndNotify() {
         responseCall = mCharacterInterceptor.getCharacters(PUBLIC_KEY, HASH_KEY, LIMIT, TIME_STAMP);
         responseCall.enqueue(new Callback<CharactersResponse>() {
             @Override
@@ -52,28 +52,28 @@ public class FetchCharacterListUseCase extends BaseViewMvc<FetchCharacterListUse
                 List<Results> rowsModels = response.body().getData().getResults();
                 if (response.isSuccessful() && response.body().getData() != null
                         && response.body().getData().getResults() != null) {
-                    onUseCaseFetchSuccess(rowsModels);
+                    onCharacterListFetchSuccess(rowsModels);
                 } else {
-                    onUseCaseFetchFailure();
+                    onCharacterListFetchFailure();
                 }
             }
 
             @Override
             public void onFailure(Call<CharactersResponse> call, Throwable t) {
-                onUseCaseFetchFailure();
+                onCharacterListFetchFailure();
             }
         });
     }
 
-    private void onUseCaseFetchFailure() {
+    private void onCharacterListFetchFailure() {
         for (Listener listener : mListener) {
-            listener.onFetchFail();
+            listener.onFetchOfCharacterListFailed();
         }
     }
 
-    private void onUseCaseFetchSuccess(List<Results> rowsModels) {
+    private void onCharacterListFetchSuccess(List<Results> rowsModels) {
         for (Listener listener : mListener) {
-            listener.onFetchSuccess(rowsModels);
+            listener.onFetchOfCharacterListSucceeded(rowsModels);
         }
     }
 }

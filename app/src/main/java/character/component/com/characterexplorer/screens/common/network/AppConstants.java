@@ -10,4 +10,6 @@ public class AppConstants {
     public static final String HASH_KEY = "ac577ffed8d33bb0dcb7b20d03f6c369";
     public static final int LIMIT = 25;
     public static final int TIME_STAMP = 1;
+    public static final int ADAPTER_IMG_SIZE = 300;
+    public static final int DETAILED_IMG_SIZE = 300;
 }

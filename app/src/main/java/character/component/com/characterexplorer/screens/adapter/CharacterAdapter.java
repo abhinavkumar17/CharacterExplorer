@@ -19,6 +19,8 @@ import character.component.com.characterexplorer.R;
 import character.component.com.characterexplorer.common.ViewUtils;
 import character.component.com.characterexplorer.model.Results;
 
+import static character.component.com.characterexplorer.screens.common.network.AppConstants.ADAPTER_IMG_SIZE;
+
 public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyViewHolder> {
 
 
@@ -62,7 +64,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyVi
         ViewUtils.hasValidText(context, rowsModels.get(position).getName(), holder.mTextTitle);
         Glide.with(context.getApplicationContext())
                 .load(rowsModels.get(position).getThumbnail().getPath() + "." + rowsModels.get(position).getThumbnail().getExtension())
-                .apply(new RequestOptions().override(300))
+                .apply(new RequestOptions().override(ADAPTER_IMG_SIZE))
                 .into(holder.mImageView);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

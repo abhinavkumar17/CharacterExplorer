@@ -25,9 +25,6 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(RobolectricTestRunner.class)
 public class CharacterListFragmentTest {
 
-    private static final String TEST_CHARACTER_NAME = "Test Name";
-    private static final String TEST_CHARACTER_DESCRIPTION = "Test Description";
-
     private MainActivity activity;
     private CharacterListFragment fragment;
     List<Results> results;

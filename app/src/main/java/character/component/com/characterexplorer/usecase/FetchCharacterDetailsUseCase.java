@@ -19,9 +19,9 @@ import static character.component.com.characterexplorer.screens.common.network.A
 public class FetchCharacterDetailsUseCase extends BaseViewMvc<FetchCharacterDetailsUseCase.Listener> {
 
     public interface Listener {
-        void characterDetailsFetchSuccess(Results results);
+        void onFetchOfCharacterDetailsSucceeded(Results results);
 
-        void characterDetailsFetchFailed();
+        void onFetchOfCharacterDetailsFailed();
     }
 
     Call<CharactersResponse> responseCall;
@@ -32,7 +32,7 @@ public class FetchCharacterDetailsUseCase extends BaseViewMvc<FetchCharacterDeta
         this.mCharacterDetalisInterceptor = mCharacterDetalisInterceptor;
     }
 
-    public void FetchCharacterDetais(String characterId) {
+    public void fetchCharacterDetailsAndNotify(String characterId) {
         responseCall = mCharacterDetalisInterceptor.getCharacterDetails(characterId, PUBLIC_KEY, HASH_KEY, LIMIT, TIME_STAMP);
         responseCall.enqueue(new Callback<CharactersResponse>() {
             @Override
@@ -40,28 +40,28 @@ public class FetchCharacterDetailsUseCase extends BaseViewMvc<FetchCharacterDeta
                 if (response.isSuccessful() && response.body().getData() != null
                         && response.body().getData().getResults() != null
                         && response.body().getData().getResults().get(0) != null) {
-                    notifySuccess(response.body().getData().getResults().get(0));
+                    onCharacterDetailsFetchSuccess(response.body().getData().getResults().get(0));
                 } else {
-                    notifyFailure();
+                    onCharacterDetailsFetchFailure();
                 }
             }
 
             @Override
             public void onFailure(Call<CharactersResponse> call, Throwable t) {
-                notifyFailure();
+                onCharacterDetailsFetchFailure();
             }
         });
     }
 
-    private void notifySuccess(Results results) {
+    private void onCharacterDetailsFetchSuccess(Results results) {
         for (Listener listener : mListener) {
-            listener.characterDetailsFetchSuccess(results);
+            listener.onFetchOfCharacterDetailsSucceeded(results);
         }
     }
 
-    private void notifyFailure() {
+    private void onCharacterDetailsFetchFailure() {
         for (Listener listener : mListener) {
-            listener.characterDetailsFetchFailed();
+            listener.onFetchOfCharacterDetailsFailed();
         }
     }
 

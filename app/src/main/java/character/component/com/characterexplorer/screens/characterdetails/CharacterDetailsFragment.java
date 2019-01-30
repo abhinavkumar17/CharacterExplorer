@@ -56,7 +56,7 @@ public class CharacterDetailsFragment extends BaseFragment implements FetchChara
         mFetchCharacterDetailsUseCase.registerListener(this);
         mCharacterDetailsMvc.registerListener(this);
         mCharacterDetailsMvc.showProgressIndication();
-        mFetchCharacterDetailsUseCase.FetchCharacterDetais(getCharacterId());
+        mFetchCharacterDetailsUseCase.fetchCharacterDetailsAndNotify(getCharacterId());
     }
 
     @Override
@@ -67,13 +67,13 @@ public class CharacterDetailsFragment extends BaseFragment implements FetchChara
     }
 
     @Override
-    public void characterDetailsFetchSuccess(Results results) {
+    public void onFetchOfCharacterDetailsSucceeded(Results results) {
         mCharacterDetailsMvc.hideProgressIndication();
         mCharacterDetailsMvc.bindView(results);
     }
 
     @Override
-    public void characterDetailsFetchFailed() {
+    public void onFetchOfCharacterDetailsFailed() {
         mCharacterDetailsMvc.hideProgressIndication();
         mDialogsManager.showRetainedDialogWithId(ServerErrorDialogFragment.newInstance(), "");
     }

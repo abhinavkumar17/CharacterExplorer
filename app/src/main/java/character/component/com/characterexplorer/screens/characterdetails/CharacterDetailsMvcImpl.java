@@ -21,6 +21,8 @@ import character.component.com.characterexplorer.screens.common.controllerbase.B
 import character.component.com.characterexplorer.screens.common.controllerbase.ViewMvcFactory;
 import character.component.com.characterexplorer.screens.common.toolbar.ToolbarView;
 
+import static character.component.com.characterexplorer.screens.common.network.AppConstants.DETAILED_IMG_SIZE;
+
 public class CharacterDetailsMvcImpl extends BaseViewMvc<CharacterDetailsMvc.Listener> implements CharacterDetailsMvc {
     private ImageView mImageView;
     private TextView mTextTitle;
@@ -59,7 +61,7 @@ public class CharacterDetailsMvcImpl extends BaseViewMvc<CharacterDetailsMvc.Lis
         mToolbarViewMvc.setTitle(rowsModels.getName());
         Glide.with(getContext().getApplicationContext())
                 .load(rowsModels.getThumbnail().getPath() + "." + rowsModels.getThumbnail().getExtension())
-                .apply(new RequestOptions().override(600))
+                .apply(new RequestOptions().override(DETAILED_IMG_SIZE))
                 .into(mImageView);
 
         if (rowsModels.getUrls() != null && rowsModels.getUrls().get(0).getUrl() != null) {
