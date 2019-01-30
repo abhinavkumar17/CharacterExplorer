@@ -16,6 +16,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    /* allows robolectric to access Android resources */
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 def retrofitVersion = "2.2.0"
@@ -38,4 +45,5 @@ dependencies {
     //Dagger
     implementation 'com.google.dagger:dagger:2.21'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.21'
+    testImplementation "org.robolectric:robolectric:4.1"
 }

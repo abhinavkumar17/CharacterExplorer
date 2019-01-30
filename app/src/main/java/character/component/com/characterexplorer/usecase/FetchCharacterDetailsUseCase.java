@@ -3,10 +3,10 @@ package character.component.com.characterexplorer.usecase;
 import java.util.ArrayList;
 import java.util.List;
 
-import character.component.com.characterexplorer.screens.common.controllerbase.BaseViewMvc;
-import character.component.com.characterexplorer.screens.common.network.CharacterInterceptor;
 import character.component.com.characterexplorer.model.CharactersResponse;
 import character.component.com.characterexplorer.model.Results;
+import character.component.com.characterexplorer.screens.common.controllerbase.BaseViewMvc;
+import character.component.com.characterexplorer.screens.common.network.CharacterInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,7 +37,13 @@ public class FetchCharacterDetailsUseCase extends BaseViewMvc<FetchCharacterDeta
         responseCall.enqueue(new Callback<CharactersResponse>() {
             @Override
             public void onResponse(Call<CharactersResponse> call, Response<CharactersResponse> response) {
-                notifySuccess(response.body().getData().getResults().get(0));
+                if (response.isSuccessful() && response.body().getData() != null
+                        && response.body().getData().getResults() != null
+                        && response.body().getData().getResults().get(0) != null) {
+                    notifySuccess(response.body().getData().getResults().get(0));
+                } else {
+                    notifyFailure();
+                }
             }
 
             @Override

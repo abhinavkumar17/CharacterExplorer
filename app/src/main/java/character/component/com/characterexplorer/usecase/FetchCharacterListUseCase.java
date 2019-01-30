@@ -3,10 +3,10 @@ package character.component.com.characterexplorer.usecase;
 import java.util.ArrayList;
 import java.util.List;
 
-import character.component.com.characterexplorer.screens.common.controllerbase.BaseViewMvc;
-import character.component.com.characterexplorer.screens.common.network.CharacterInterceptor;
 import character.component.com.characterexplorer.model.CharactersResponse;
 import character.component.com.characterexplorer.model.Results;
+import character.component.com.characterexplorer.screens.common.controllerbase.BaseViewMvc;
+import character.component.com.characterexplorer.screens.common.network.CharacterInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,7 +50,12 @@ public class FetchCharacterListUseCase extends BaseViewMvc<FetchCharacterListUse
             @Override
             public void onResponse(Call<CharactersResponse> call, Response<CharactersResponse> response) {
                 List<Results> rowsModels = response.body().getData().getResults();
-                onUseCaseFetchSuccess(rowsModels);
+                if (response.isSuccessful() && response.body().getData() != null
+                        && response.body().getData().getResults() != null) {
+                    onUseCaseFetchSuccess(rowsModels);
+                } else {
+                    onUseCaseFetchFailure();
+                }
             }
 
             @Override

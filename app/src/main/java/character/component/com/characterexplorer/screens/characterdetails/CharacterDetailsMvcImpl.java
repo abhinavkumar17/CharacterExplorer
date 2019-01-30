@@ -16,10 +16,10 @@ import com.bumptech.glide.request.RequestOptions;
 
 import character.component.com.characterexplorer.R;
 import character.component.com.characterexplorer.common.ViewUtils;
-import character.component.com.characterexplorer.screens.common.controllerbase.BaseViewMvc;
-import character.component.com.characterexplorer.screens.common.toolbar.ToolbarView;
-import character.component.com.characterexplorer.screens.common.controllerbase.ViewMvcFactory;
 import character.component.com.characterexplorer.model.Results;
+import character.component.com.characterexplorer.screens.common.controllerbase.BaseViewMvc;
+import character.component.com.characterexplorer.screens.common.controllerbase.ViewMvcFactory;
+import character.component.com.characterexplorer.screens.common.toolbar.ToolbarView;
 
 public class CharacterDetailsMvcImpl extends BaseViewMvc<CharacterDetailsMvc.Listener> implements CharacterDetailsMvc {
     private ImageView mImageView;
@@ -62,19 +62,21 @@ public class CharacterDetailsMvcImpl extends BaseViewMvc<CharacterDetailsMvc.Lis
                 .apply(new RequestOptions().override(600))
                 .into(mImageView);
 
-        final String url = rowsModels.getUrls().get(0).getUrl();
-        if (!TextUtils.isEmpty(url)) {
-            mButton.setVisibility(View.VISIBLE);
-            mButton.setText(getString(R.string.character_info));
-            final Uri myUri = Uri.parse(url);
-            mButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ViewUtils.redirectToExternalLink(getRootView().getContext(), myUri);
-                }
-            });
-        } else {
-            mButton.setVisibility(View.INVISIBLE);
+        if (rowsModels.getUrls() != null && rowsModels.getUrls().get(0).getUrl() != null) {
+            final String url = rowsModels.getUrls().get(0).getUrl();
+            if (!TextUtils.isEmpty(url)) {
+                mButton.setVisibility(View.VISIBLE);
+                mButton.setText(getString(R.string.character_info));
+                final Uri myUri = Uri.parse(url);
+                mButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ViewUtils.redirectToExternalLink(getRootView().getContext(), myUri);
+                    }
+                });
+            } else {
+                mButton.setVisibility(View.INVISIBLE);
+            }
         }
     }
 
